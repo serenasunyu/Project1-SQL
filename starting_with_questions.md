@@ -6,14 +6,23 @@ Answer the following questions and provide the SQL queries used to find the answ
 
 SQL Queries:
 ```
-SELECT city, country,totaltransactionrevenue AS HighestRevenues
+SELECT DISTINCT city, MAX(totaltransactionrevenue)
 FROM all_sessions
 WHERE totaltransactionrevenue IS NOT NULL
-GROUP BY city, country, totaltransactionrevenue
-ORDER BY HighestRevenues DESC NULLS LAST
+AND city != 'not available in demo dataset'
+GROUP BY city
+LIMIT 1
+```
+```
+SELECT DISTINCT country, MAX(totaltransactionrevenue)
+FROM all_sessions
+WHERE totaltransactionrevenue IS NOT NULL
+GROUP BY country
+ORDER BY MAX(totaltransactionrevenue) DESC
+LIMIT 1
 ```
 
-Answer: city - not available, country - United States
+Answer: city - Atlanta, Country - United States
 
 
 **Question 2: What is the average number of products ordered from visitors in each city and country?**
@@ -21,14 +30,18 @@ Answer: city - not available, country - United States
 
 SQL Queries:
 ```
-SELECT DISTINCT als.city, als.country, AVG(p.orderedquantity) AS AverageNumProducts
+SELECT DISTINCT als.city, AVG(p.orderedquantity) AS AverageNumProducts
 FROM all_sessions als
 JOIN products p ON als.productsku = p.sku
-GROUP BY als.city, als.country
+GROUP BY als.city
 ```
+```
+SELECT DISTINCT als.country, AVG(p.orderedquantity) AS AverageNumProducts
+FROM all_sessions als
+JOIN products p ON als.productsku = p.sku
+GROUP BY als.country
 
 Answer:
-428 rows
 
 
 
@@ -58,13 +71,61 @@ In general, apparel (especially Men's) is ordered the most by customers among al
 
 SQL Queries:
 ```
+With temp as (
+	select 
+		a.country,
+		p.name,
+		sum(p.orderedquantity) as totalquantity
+	from products p
+	left join all_sessions a on p.sku = a.productsku
+	group by a.country, 
+	p.name
+)
+select ranked.country, 
+		ranked.name, 
+		ranked.totalquantity
+from (
+	select temp.country, 
+			temp.name, 
+			temp.totalquantity,
+			row_number() over (
+			partition by temp.country
+			order by temp.totalquantity DESC
+			) as row_num
+	from temp
+) as ranked
+where row_num = 1
+```
+```
+With temp as (
+	select 
+		a.city,
+		p.name,
+		sum(p.orderedquantity) as totalquantity
+	from products p
+	left join all_sessions a on p.sku = a.productsku
+	group by a.city, p.name
+)
+select ranked.city, 
+	ranked.name, 
+	ranked.totalquantity
+from (
+	select temp.city, 
+		temp.name, 
+		temp.totalquantity,
+		row_number() over (
+			partition by temp.city 
+			order by temp.totalquantity DESC
+			) as row_num
+	from temp
+) as ranked
+where row_num = 1
 
 ```
 
 
 Answer:
-
-
+Kick ball, water bottle and custom decals are very popular.
 
 
 **Question 5: Can we summarize the impact of revenue generated from each city/country?**
