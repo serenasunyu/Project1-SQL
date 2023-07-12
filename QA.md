@@ -1,6 +1,6 @@
 **What are your risk areas? Identify and describe them.**
 
-The biggest risk exists in the product category column. Because there are many ambiguous values given, such as "Home/Shop by Brand/YouTube/" which does not show the specific category of that product. As a result, when we try to get the category of product sold most, it gives us an ambiguous result, such as "Home/Shop by Brand/YouTube/", "Home/Apparel/Kid's/Kid's-Infant/" and "Home/Apparel/Kid's/Kid's-Infant/" are two different categories.
+There is a big risk existed in the product category column. Because there are many ambiguous values given, such as "Home/Shop by Brand/YouTube/" which does not show the specific category of that product. As a result, when we try to get the category of product sold most, it gives us an ambiguous result, such as "Home/Shop by Brand/YouTube/", "Home/Apparel/Kid's/Kid's-Infant/" and "Home/Apparel/Kid's/Kid's-Infant/" are two different categories.
 
 **QA Process:**
 **Describe your QA process and include the SQL queries used to execute it.**
@@ -24,3 +24,14 @@ WHERE p.orderedquantity > 0 AND als.v2productcategory = 'Home/Shop by Brand/YouT
 We will see there are a variety of categories under this category. This means the result I got is not accurate.
 
 Then, maybe it's better to update the productcategory column with accurate values or create a new table with accurate values.
+
+Also, on the analytics table, the unit price multiplied units sold does not match the values in the revenue column. This might be another risk area.
+```
+SELECT (unit_price/1000000) AS clean_unit_price,
+		units_sold,
+		(revenue/1000000) AS clean_revenue,
+		(((unit_price/1000000) * units_sold) - (revenue/1000000)) AS difference
+FROM analytics
+WHERE unit_price > 0 AND units_sold > 0
+ORDER BY difference
+```
