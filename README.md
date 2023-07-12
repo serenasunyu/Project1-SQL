@@ -27,7 +27,4 @@ what would you do if you had a bit more time?
 2. Update v2productcategory values in table all_sessions based on the given productname. In my opinion, the result I get from question 4 in part 3 is not accurate which is generated from the original data.
 
 
-Spend 1 min on project flow structure. What were the steps in your project?
-Spend 1-2 minutes sharing what you discovered this data could tell you and how you used the data to answer those questions.
-Explain your QA process 1 min.
-what would you do if you had a bit more time?
+
