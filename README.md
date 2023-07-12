@@ -6,14 +6,14 @@ Loading, transforming, cleaning and analyzing data with SQL.
 
 ## Process
 
-Step 1: Load files into pgAdmin4
-Step 2: Transform/clean the data, including changing the format of the data, removing any duplicates in the tables, and so on.
-Step 3: Analyze data according to the questions in part 3 & part 4.
-Step 4: Implement a QA process to validate the transformed data. Find the risk areas and validate them by using queries.
-Step 5: Generate ERD schema to give a clear view of the connections among the tables.
+* Step 1: Load CSV files into pgAdmin4
+* Step 2: Transform/clean the data, including changing the format of the data, removing any duplicates in the tables, and so on.
+* Step 3: Analyze data according to the questions in part 3 & part 4.
+* Step 4: Implement a QA process to validate the transformed data. Find the risk areas and validate them by using queries.
+* Step 5: Generate ERD schema to give a clear view of the connections among the tables.
 
 ## Results
-Based on the given information, I have a general idea about the product name, sku, category, visitid, ordered quantity, price, avenue, city and country. After viewing all the columns and all 5 tables, I got a general idea that which column should be used to build the connection between different tables. 
+Based on the given information, I have a general idea about the product name,  category, ordered quantity, price, avenue, city and country. After viewing all the columns and all 5 tables, I got a general idea that which column should be used to build the connection between different tables. 
 For example, in question 3 in part 3, in order to get the result, we have to join table products and table all_sessions together through productsku. 
 
 ## Challenge
