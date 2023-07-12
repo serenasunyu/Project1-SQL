@@ -13,8 +13,10 @@ Loading, transforming, cleaning and analyzing data with SQL.
 * Step 5: Generate ERD schema to give a clear view of the connections among the tables.
 
 ## Results
-Based on the given information, I have a general idea about the product name,  category, ordered quantity, price, avenue, city and country. After viewing all the columns and all 5 tables, I got a general idea that which column should be used to build the connection between different tables. 
-For example, in question 3 in part 3, in order to get the result, we have to join table products and table all_sessions together through productsku. 
+1. United States has the top sales.
+2. Water bottles, custom decals are the top-selling products.
+3. Organic search is the main way for customers to make purchases.
+4. Customers make their purchases after viewing the first five pages in general.
 
 ## Challenge
 There are two challenges for me when I was dealing with this data:
