@@ -58,10 +58,14 @@ FROM analytics
 **Delete duplicate row by visitid,date and unit_price.**
 ```
 DELETE FROM analytics
-WHERE (visitid, date, unit_price) NOT IN (
-  SELECT visitid, date, MIN(unit_price)
-  FROM analytics
-  GROUP BY visitid, date
+WHERE (visitid, date, unit_price) IN (
+  SELECT visitid, date, unit_price
+  FROM (
+    SELECT visitid, date, unit_price,
+           ROW_NUMBER() OVER (PARTITION BY visitid, date, unit_price ORDER BY (SELECT NULL)) AS rn
+    FROM analytics
+  ) AS subquery
+  WHERE rn > 1
 );
 ```
 
