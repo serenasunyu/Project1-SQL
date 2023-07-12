@@ -1,6 +1,7 @@
 Question 1: What is the average number of pages viewed by the visitors?
 
 SQL Queries:
+
 ```
 SELECT AVG(pageviews)
 FROM all_sessions
