@@ -54,15 +54,14 @@ SELECT unit_price/1000000 AS unit_price
 FROM analytics
 ```
 
-**Delete duplicate row by unique visitid.**
-```
-SELECT DISTINCT visitid
-FROM analytics
-```
 
-**Delete duplicate row by visitid and unit_price.**
+**Delete duplicate row by visitid,date and unit_price.**
 ```
-SELECT DISTINCT visitid, *
-FROM analytics
+DELETE FROM analytics
+WHERE (visitid, date, unit_price) NOT IN (
+  SELECT visitid, date, MIN(unit_price)
+  FROM analytics
+  GROUP BY visitid, date
+);
 ```
 
