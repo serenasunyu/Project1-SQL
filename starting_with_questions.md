@@ -12,8 +12,7 @@ WHERE totaltransactionrevenue IS NOT NULL
 AND city != 'not available in demo dataset'
 GROUP BY city
 LIMIT 1
-```
-```
+
 SELECT DISTINCT country, MAX(totaltransactionrevenue)
 FROM all_sessions
 WHERE totaltransactionrevenue IS NOT NULL
@@ -34,8 +33,8 @@ SELECT DISTINCT als.city, AVG(p.orderedquantity) AS AverageNumProducts
 FROM all_sessions als
 JOIN products p ON als.productsku = p.sku
 GROUP BY als.city
-```
-```
+
+
 SELECT DISTINCT als.country, AVG(p.orderedquantity) AS AverageNumProducts
 FROM all_sessions als
 JOIN products p ON als.productsku = p.sku
@@ -95,8 +94,8 @@ from (
 	from temp
 ) as ranked
 where row_num = 1
-```
-```
+
+
 With temp as (
 	select 
 		a.city,
@@ -139,9 +138,9 @@ JOIN all_sessions als ON anal.fullvisitorid = als.fullvisitorid
 WHERE anal.revenue IS NOT NULL
 GROUP BY als.country
 ORDER BY TotalRevenue DESC
-```
+
 -- city
-```
+
 SELECT als.city, SUM(anal.revenue) AS TotalRevenue
 FROM analytics anal
 JOIN all_sessions als ON anal.fullvisitorid = als.fullvisitorid
