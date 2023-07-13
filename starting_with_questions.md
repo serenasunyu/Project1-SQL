@@ -39,9 +39,9 @@ SELECT DISTINCT als.country, AVG(p.orderedquantity) AS AverageNumProducts
 FROM all_sessions als
 JOIN products p ON als.productsku = p.sku
 GROUP BY als.country
+```
 
 Answer:
-
 
 
 
